@@ -1,7 +1,10 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Post; // Postモデルを使用するために追加
+use App\Http\Requests\StorePostRequest;
+
 class PostsController extends Controller
 {
     public function index()
@@ -11,7 +14,7 @@ class PostsController extends Controller
     }
 
     //追記
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         $post = new Post;
         $post->title = $request->title;
