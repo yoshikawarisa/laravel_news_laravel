@@ -13,7 +13,6 @@ class PostsController extends Controller
         return view('posts.index', ['posts' => $posts]); // views/posts/index.blade.php を表示する
     }
 
-    //追記
     public function store(StorePostRequest $request)
     {
         $post = new Post;
@@ -21,5 +20,14 @@ class PostsController extends Controller
         $post->message = $request->message;
         $post->save();
         return redirect()->route('posts.index');
+    }
+
+    public function show(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+    
+        return view('posts.show', [
+            'post' => $post,
+        ]);
     }
 }

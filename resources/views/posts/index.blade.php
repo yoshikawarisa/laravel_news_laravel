@@ -9,6 +9,16 @@
 <body>
     <h1><a href="{{ route('posts.index') }}">Laravel News</a></h1>
     <form action="{{ route('posts.store') }}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif
+
         @csrf
         <div>
             タイトル：
@@ -20,14 +30,16 @@
             <input name="message">
         </div>
         <br><br>
-        <button>送信</button>
-        <br><br><br><br>
+        <button type="submit" onclick="confirm('投稿しますか？')">投稿</button>
     </form>
+    <p>投稿一覧🐶♡</p> 
     @foreach ($posts as $post) {{-- PostControllerのindexメソッド内の「$posts」を受け取る --}}
         <h3>タイトル：{{ $post->title }}</h3>
         <p>投稿内容：{{ $post->message }}</p>
+        <p><a href="{{ route('posts.show', $post->id) }}" >詳細</a></p>
         <br>
         <br>
     @endforeach
 </body>
+
 </html>
